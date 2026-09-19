@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>基于 Mamba 的无线通信调制方式识别方法研究 — 开题报告</title>
+<style>
+  :root {
+    --primary: #0e7a5f;
+    --primary-light: #e8f5f1;
+    --accent: #b45309;
+    --text: #2b2f36;
+    --muted: #6b7280;
+    --border: #d9dee7;
+    --bg-soft: #f7faf9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+    color: var(--text);
+    line-height: 1.9;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+    background: #ffffff;
+  }
+  .cover {
+    text-align: center;
+    border-bottom: 3px double var(--primary);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+  .cover .kicker {
+    color: var(--muted);
+    font-size: 14px;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+  .cover h1 {
+    font-size: 26px;
+    color: var(--primary);
+    margin: 6px 0 14px;
+    line-height: 1.5;
+  }
+  .cover .meta { color: var(--muted); font-size: 14px; }
+  .cover .meta span { margin: 0 10px; }
+  h2 {
+    font-size: 20px;
+    color: var(--primary);
+    border-left: 6px solid var(--primary);
+    padding-left: 12px;
+    margin-top: 44px;
+    margin-bottom: 14px;
+  }
+  h3 { font-size: 16px; color: var(--accent); margin: 22px 0 8px; }
+  p { margin: 10px 0; text-align: justify; }
+  ol, ul { padding-left: 26px; margin: 8px 0; }
+  li { margin: 5px 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14.5px;
+  }
+  th, td { border: 1px solid var(--border); padding: 9px 12px; text-align: center; }
+  th { background: var(--primary-light); color: var(--primary); }
+  tr:nth-child(even) td { background: var(--bg-soft); }
+  .note {
+    background: var(--bg-soft);
+    border-left: 4px solid var(--primary);
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 14.5px;
+    color: #3d4653;
+  }
+  .route {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 22px;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 13.5px;
+    line-height: 2.0;
+    white-space: pre;
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+  .footer {
+    margin-top: 56px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+  }
+  strong.hl { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="kicker">本科毕业设计（论文）· 开题报告</div>
+  <h1>基于 Mamba 的<br>无线通信调制方式识别方法研究</h1>
+  <div class="meta">
+    <span>学科方向：通信工程 / 人工智能</span>
+    <span>研究类型：应用基础研究</span>
+  </div>
+</div>
+
+<!-- ================= 一、研究目的 ================= -->
+<h2>一、研究目的与意义</h2>
+
+<h3>1.1 研究背景</h3>
+<p>调制方式识别（Automatic Modulation Classification, AMC）是认知无线电、频谱监测、电磁频谱战中的关键使能技术。深度学习方法已成为该领域主流，但现有架构存在明显的能力断层：</p>
+<ol>
+  <li><strong>CNN / CLDNN / ResNet</strong>：通过局部卷积感受野提取波形特征，效率高，但受限于固定大小的卷积核，<strong class="hl">难以建模长程时序依赖</strong>，在低信噪比（SNR &lt; 0 dB）下性能急剧下降；</li>
+  <li><strong>Transformer / LLM</strong>：全局注意力可建模长程依赖，但注意力计算复杂度随序列长度平方增长，<strong class="hl">参数量庞大（亿级至十亿级）、训练推理成本高</strong>，难以部署于资源受限的频谱监测设备。</li>
+</ol>
+<p>Mamba 状态空间模型（State Space Model, SSM）于 2023 年提出，其选择性扫描机制（Selective Scan）将序列建模复杂度从 O(N²) 降至 <strong class="hl">O(N)</strong>，兼具 Transformer 的长程建模能力与 RNN 的线性效率，近两年已被引入调制识别领域并取得突破性结果：代表性工作 MAMCA 在 RML2016.10 数据集上 -15 dB 低信噪比条件下准确率仍保持 75% 以上，比同期最优基线高出 8.65%~37.71% 个百分点；AWMN 以仅 0.44M 的参数量实现 62%~75% 的识别精度。<strong>这表明 Mamba 正是填补"CNN 太短、Transformer 太贵"能力断层的最优候选架构。</strong></p>
+
+<h3>1.2 研究目的</h3>
+<p>本课题以 Mamba 状态空间模型为核心，研究高效、鲁棒的调制识别方法，系统回答以下三个问题：</p>
+<ol>
+  <li>如何将 Mamba 的选择性状态空间机制与 IQ 信号的局部时序特征有效结合，构建轻量高性能的调制识别网络？（架构设计问题）</li>
+  <li>相比 CNN、Transformer 两类主流基线，Mamba 模型在低信噪比场景下的性能增益有多少？增益来自何处？（性能对标与机理分析问题）</li>
+  <li>如何通过特征增强与训练策略（如小波变换、注意力门控、数据增强），进一步释放 Mamba 架构在低样本、跨信道场景下的潜力？（优化提升问题）</li>
+</ol>
+
+<h3>1.3 研究意义</h3>
+<ul>
+  <li><strong>理论意义</strong>：为"长序列信号的高效建模"这一核心问题提供 Mamba 方案的系统验证与机理分析，推动状态空间模型在物理层信号处理领域的落地研究。</li>
+  <li><strong>应用意义</strong>：Mamba 模型百万级参数量、线性推理复杂度的特性，使其天然适配边缘频谱监测设备，研究成果具备直接工程转化价值。</li>
+  <li><strong>个人训练意义</strong>：覆盖信号处理、序列建模、深度学习三大知识模块，且开源代码丰富，实验可控性强，适合本科阶段完成有深度的研究。</li>
+</ul>
+
+<!-- ================= 二、研究内容 ================= -->
+<h2>二、研究内容</h2>
+
+<h3>2.1 基于 Mamba 的调制识别总体架构设计</h3>
+<p>设计"Mamba 主干 + 局部特征增强"的总体网络架构：</p>
+<ul>
+  <li><strong>信号输入层</strong>：直接接收 2×N 维原始 IQ 序列（不图像化，避免信息损耗）；</li>
+  <li><strong>局部特征提取层</strong>：浅层 CNN / 小波变换层提取符号级局部模式；</li>
+  <li><strong>Mamba 编码层</strong>：堆叠 2~6 层选择性状态空间块（Selective SSM Block），建模长程时序依赖；</li>
+  <li><strong>分类头</strong>：全局池化 + 全连接层输出调制类别。</li>
+</ul>
+
+<h3>2.2 局部—全局双分支特征融合机制研究</h3>
+<ul>
+  <li>研究 <strong>TCN-Mamba 并行双分支</strong>结构：TCN 分支负责局部时序模式，Mamba 分支负责长程依赖，特征在分类前融合；</li>
+  <li>研究<strong>自适应小波 + Mamba</strong>混合方案（借鉴 AWMN 思路）：用小波变换提供多分辨率时频先验，弥补纯数据驱动模型的物理可解释性；</li>
+  <li>对比"串行堆叠"与"并行融合"两种结合方式对性能的影响。</li>
+</ul>
+
+<h3>2.3 低信噪比鲁棒性增强方法</h3>
+<ul>
+  <li><strong>输入级增强</strong>：信道噪声 augment（随机加噪、频偏/相偏扰动、多径衰落仿真）提升训练数据多样性；</li>
+  <li><strong>结构级增强</strong>：在去噪单元（Denoising Unit）或门控注意力辅助下，抑制噪声主导的长程依赖干扰；</li>
+  <li><strong>损失级增强</strong>：引入标签平滑与难例挖掘（Focal Loss），聚焦易混淆调制对（如 16QAM vs 64QAM）。</li>
+</ul>
+
+<h3>2.4 系统化对照实验</h3>
+<table>
+  <tr><th>实验场景</th><th>实验设定</th><th>对比基线</th></tr>
+  <tr><td>全 SNR 区间性能</td><td>SNR ∈ [-20, 30] dB，步进 2 dB</td><td>CNN、CLDNN、ResNet、Transformer</td></tr>
+  <tr><td>低信噪比专项</td><td>SNR ∈ [-10, 0] dB，重点考察</td><td>MAMCA（复现）、AWMN（复现）</td></tr>
+  <tr><td>小样本场景</td><td>每类训练样本 50 / 100 / 500 / 1000 四档</td><td>同数据量 ResNet</td></tr>
+  <tr><td>跨信道迁移</td><td>信道 A 训练 → 信道 B 零样本测试</td><td>同条件 CNN 基线</td></tr>
+  <tr><td>效率对比</td><td>参数量 / FLOPs / 推理时延 / 显存</td><td>全部基线统一测试</td></tr>
+</table>
+
+<h3>2.5 机理分析与消融实验</h3>
+<ul>
+  <li>可视化 Mamba 隐藏状态的激活模式，解释其对不同调制类型（幅度类/相位类/频率类）的响应差异；</li>
+  <li>消融实验：逐一移除局部特征层、去噪单元、长程依赖模块，量化各组件贡献；</li>
+  <li>序列长度敏感性分析：输入长度 N ∈ {64, 128, 256, 512} 对精度与耗时的影响。</li>
+</ul>
+
+<!-- ================= 三、技术路线 ================= -->
+<h2>三、技术路线</h2>
+<div class="route">┌───────────────────────────────────────────────────────┐
+│  阶段一：文献调研与数据准备（第1-4周）                  │
+│  · 精读 Mamba 原始论文与 MAMCA / AWMN 等 AMC 应用论文   │
+│  · 下载 RML2016.10a 公开数据集（24种调制，11档SNR）     │
+│  · 实现数据加载、归一化、信道增强管线                   │
+└──────────────────────┬────────────────────────────────┘
+                       ▼
+┌───────────────────────────────────────────────────────┐
+│  阶段二：基线复现（第5-8周）                            │
+│  · 训练 CNN / CLDNN / ResNet 基线                     │
+│  · 复现 MAMCA（GitHub: ZhangYezhuo/MAMC）               │
+│  · 建立全 SNR 区间基线精度曲线（性能对标基准）          │
+└──────────────────────┬────────────────────────────────┘
+                       ▼
+┌───────────────────────────────────────────────────────┐
+│  阶段三：Mamba 识别网络设计与实现（第9-13周）           │
+│  · 搭建"局部特征层 + Mamba 编码层 + 分类头"主架构       │
+│  · 实现 TCN-Mamba 并行双分支变体                      │
+│  · 超参数实验：SSM 层数、状态维度、扩展因子             │
+│  · 实现去噪单元 / 门控注意力增强模块                    │
+└──────────────────────┬────────────────────────────────┘
+                       ▼
+┌───────────────────────────────────────────────────────┐
+│  阶段四：困难场景实验与消融分析（第14-17周）            │
+│  · 低SNR / 小样本 / 跨信道迁移三组对照实验              │
+│  · 消融实验 + 序列长度敏感性分析                        │
+│  · 隐藏状态可视化，撰写机理分析                         │
+│  · 参数量 / FLOPs / 时延效率统一测试                    │
+└──────────────────────┬────────────────────────────────┘
+                       ▼
+┌───────────────────────────────────────────────────────┐
+│  阶段五：总结与论文撰写（第18-20周）                    │
+│  · 形成"何时该用 Mamba、相比 CNN/Transformer 的优势边界" │
+│    的量化结论                                           │
+│  · 撰写毕业论文，准备答辩                               │
+└───────────────────────────────────────────────────────┘
+
+开发环境：Python 3.10 · PyTorch 2.x · mamba-ssm / Mamba-SSM-PyTorch ·
+           单卡 16~24GB 显存（Mamba 参数量小，普通消费级显卡即可）·
+           数据集：RML2016.10a（公开免费）</div>
+
+<!-- ================= 四、创新点 ================= -->
+<h2>四、创新点</h2>
+<ol>
+  <li><strong>架构创新——局部与长程依赖的双分支协同建模</strong>：针对 IQ 信号"局部波形模式 + 长程符号依赖"的双重结构特性，设计 TCN-Mamba 并行双分支网络，在本科层面实现 CNN 局部感受野与 SSM 全局建模能力的首个系统性融合验证。</li>
+  <li><strong>方法创新——面向低信噪比的增强型 Mamba 调制识别</strong>：将去噪单元 / 门控注意力机制引入 Mamba 调制识别管线，并配合信道噪声增强与 Focal Loss 难例挖掘训练策略，针对性改善易混淆调制对在低 SNR 下的区分度。</li>
+  <li><strong>实验创新——CNN / Transformer / Mamba 三类架构的统一对标</strong>：在同一数据集、同一训练协议、同一测试协议下，首次（本科层面）给出三类序列建模架构在调制识别任务上的完整精度—效率权衡曲线，形成具有选型参考价值的方法论结论。</li>
+</ol>
+
+<!-- ================= 五、考核指标 ================= -->
+<h2>五、考核指标</h2>
+
+<h3>5.1 功能性指标</h3>
+<table>
+  <tr><th>编号</th><th>考核项</th><th>指标要求</th></tr>
+  <tr><td>F1</td><td>整体识别准确率</td><td>SNR ≥ 0 dB 时平均准确率 ≥ 90%，达到或超过复现的 MAMCA 基线</td></tr>
+  <tr><td>F2</td><td>低信噪比性能</td><td>SNR = -10 dB 时准确率 ≥ 65%；-15 dB 时 ≥ 50%</td></tr>
+  <tr><td>F3</td><td>小样本性能</td><td>每类 100 样本时，准确率优于同数据量 ResNet ≥ 5 个百分点</td></tr>
+  <tr><td>F4</td><td>跨信道迁移</td><td>跨信道零样本迁移性能衰减比 CNN 基线低 ≥ 8 个百分点</td></tr>
+  <tr><td>F5</td><td>混淆控制</td><td>SNR ≥ 10 dB 时，最高混淆对错误率 ≤ 3%</td></tr>
+</table>
+
+<h3>5.2 模型与效率指标</h3>
+<table>
+  <tr><th>编号</th><th>考核项</th><th>指标要求</th></tr>
+  <tr><td>E1</td><td>模型轻量化</td><td>参数量 ≤ 5M，单样本推理时延 ≤ 10 ms（消费级 GPU）</td></tr>
+  <tr><td>E2</td><td>效率优势</td><td>同等精度下推理时延比 Transformer 基线降低 ≥ 50%</td></tr>
+  <tr><td>E3</td><td>可复现性</td><td>全部实验提供完整代码、随机种子与配置文件，结果可复现</td></tr>
+  <tr><td>E4</td><td>机理可解释</td><td>提供隐藏状态可视化与至少 3 组消融实验结果</td></tr>
+</table>
+
+<h3>5.3 成果指标</h3>
+<table>
+  <tr><th>编号</th><th>考核项</th><th>指标要求</th></tr>
+  <tr><td>O1</td><td>毕业论文</td><td>完成 1.5 万字以上符合本科毕业设计规范的学位论文，通过答辩</td></tr>
+  <tr><td>O2</td><td>实验完整性</td><td>完成不少于 4 组对照实验与 1 组消融实验，图表数据完整</td></tr>
+  <tr><td>O3</td><td>代码交付</td><td>提交含数据预处理、训练、评估全流程的开源代码仓库（附 README）</td></tr>
+</table>
+
+<div class="note">
+<strong>预期结论形态：</strong>本课题预期形成三层结论——①在低信噪比场景，Mamba 凭借长程依赖建模能力显著优于 CNN（预期 10~20 个百分点）；②在资源效率上，Mamba 以百万级参数量逼近 Transformer 的精度，推理成本远低于后者；③通过局部—全局双分支融合，可进一步压缩与最优方法的差距。该结论将直接回答"CNN、Transformer、Mamba 三类架构在调制识别任务上如何选型"这一工程实际问题。
+</div>
+
+<div class="footer">
+基于 Mamba 的无线通信调制方式识别方法研究 · 开题报告 · 2026年9月
+</div>
+
+</body>
+</html>
