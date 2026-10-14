@@ -1,0 +1,48 @@
+{
+  "generated_at": "2026-10-14T20:35:15+08:00",
+  "task": "P1-T10",
+  "task_status": "completed",
+  "phase_1_status": "in_progress",
+  "phase_1_completed_task_count": 9,
+  "phase_1_total_task_count": 10,
+  "remaining_task": "P1-T3",
+  "technical_pipeline_ready": true,
+  "frozen_protocol": {
+    "dataset": "RML2018.01a",
+    "task": "24-class closed-set automatic modulation classification",
+    "input_shape": [2, 1024],
+    "class_order_file": "data/raw/RML2018.01a/classes-fixed.json",
+    "split_seed": 2026,
+    "split_strategy": "independent stratification by modulation class and SNR",
+    "split_counts": {
+      "train": 1789632,
+      "validation": 383136,
+      "test": 383136
+    },
+    "preprocessing": "per-sample complex RMS normalization without mean removal",
+    "first_baseline_augmentation_enabled": false,
+    "validation_test_random_augmentation_enabled": false
+  },
+  "passed_artifacts": [
+    "artifacts/P1-T4/environment_report.json",
+    "artifacts/P1-T5/dataset_manifest.json",
+    "artifacts/P1-T6/data_quality_report.json",
+    "artifacts/P1-T7/split_manifest.json",
+    "artifacts/P1-T8/preprocessing_report.json",
+    "artifacts/P1-T9/minimal_chain_report.json"
+  ],
+  "phase_2_recommended_order": [
+    "lightweight CNN",
+    "ResNet",
+    "CLDNN or MCLDNN",
+    "Transformer",
+    "MAMCA adaptation",
+    "AWMN adaptation or scoped comparison"
+  ],
+  "phase_2_entry_requirement": "Complete P1-T3 and freeze architecture/training protocol decisions.",
+  "highest_priority_risks": [
+    "P1-T3 literature extraction is incomplete.",
+    "Published TCN-Mamba work overlaps with the original proposed novelty.",
+    "Full-dataset training cost has not yet been measured for formal baselines."
+  ]
+}
