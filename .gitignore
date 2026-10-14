@@ -1,0 +1,100 @@
+# -----------------------------------------------------------------------------
+# Local configuration and credentials
+# -----------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+/.aws/
+/.codex/
+/.agents/
+
+# -----------------------------------------------------------------------------
+# Editors and operating systems
+# -----------------------------------------------------------------------------
+/.vscode/
+/.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# -----------------------------------------------------------------------------
+# Python caches, environments, tests, and build products
+# -----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.ipynb_checkpoints/
+
+.venv/
+venv/
+env/
+ENV/
+*.egg-info/
+build/
+dist/
+
+# -----------------------------------------------------------------------------
+# RadioML datasets and generated data
+# Keep data/README.md in Git; only binary/local data are excluded.
+# -----------------------------------------------------------------------------
+/data/raw/
+/data/processed/
+/data/cache/
+/data/tmp/
+
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.npy
+*.npz
+*.mat
+*.tfrecord
+*.tfrecords
+
+# Dataset/download archives and incomplete browser downloads
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.tar.bz2
+*.7z
+*.part
+*.crdownload
+
+# -----------------------------------------------------------------------------
+# Papers: keep the bibliography and download links, not redistributed PDFs.
+# -----------------------------------------------------------------------------
+/paper/**/*.pdf
+/paper/*.pdf
+
+# -----------------------------------------------------------------------------
+# Training products and experiment services
+# -----------------------------------------------------------------------------
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
+*.log
+
+/checkpoints/
+/outputs/
+/runs/
+/logs/
+/wandb/
+/mlruns/
+/lightning_logs/
+/tensorboard/
+
+# Temporary files
+*.tmp
+*.bak

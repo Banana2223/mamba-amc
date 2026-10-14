@@ -1,0 +1,58 @@
+{
+  "generated_at": "2026-10-14T09:12:58+08:00",
+  "project_root": "/home/yzl/Project/基于mamba的调制识别方法研究",
+  "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+  "python_version": "3.10.20",
+  "cpu_count": 16,
+  "memory": {
+    "total_gib": 14.84,
+    "available_gib": 10.24,
+    "swap_total_gib": 0.0
+  },
+  "disk": {
+    "total_gib": 274.54,
+    "free_gib": 154.44
+  },
+  "gpu": {
+    "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "driver_version": "595.91.07",
+    "memory_total_mib": 8188,
+    "memory_free_mib": 7419,
+    "compute_capability": "8.9"
+  },
+  "packages": {
+    "torch": "2.5.1+cu121",
+    "numpy": "1.26.4",
+    "h5py": "3.12.1",
+    "scipy": "1.13.1",
+    "scikit-learn": "1.5.2",
+    "pandas": "2.2.3",
+    "matplotlib": "3.9.2",
+    "tqdm": "4.67.1",
+    "einops": "0.8.0",
+    "causal-conv1d": "1.5.0.post8",
+    "mamba-ssm": "2.2.4"
+  },
+  "mamba_smoke_test": {
+    "torch_version": "2.5.1+cu121",
+    "torch_cuda_build": "12.1",
+    "cuda_available": true,
+    "device_count": 1,
+    "device_name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "input_shape": [
+      8,
+      1024,
+      64
+    ],
+    "output_shape": [
+      8,
+      1024,
+      64
+    ],
+    "loss": 0.0017849213909357786,
+    "elapsed_seconds": 0.2385,
+    "peak_vram_mib": 72.93,
+    "output_is_finite": true,
+    "passed": true
+  }
+}

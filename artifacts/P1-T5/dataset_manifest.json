@@ -1,0 +1,113 @@
+{
+  "dataset": "RADIOML 2018.01A",
+  "verified_at": "2026-10-14T12:47:59+08:00",
+  "source": {
+    "publisher": "DeepSig Inc.",
+    "official_page": "https://www.deepsig.ai/datasets/",
+    "acquisition_method": "Official browser form or user-supplied authorized direct URL"
+  },
+  "license": {
+    "name": "CC BY-NC-SA 4.0",
+    "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "commercial_use_allowed": false
+  },
+  "file": {
+    "path": "data/raw/RML2018.01a/GOLD_XYZ_OSC.0001_1024.hdf5",
+    "size_bytes": 21449148312,
+    "size_gib": 19.976,
+    "sha256": "e3dd0bef66a3426959ee66a1709a8c0a95d4f8395d18aaf6f1214bdbc763bd38",
+    "official_checksum_available": false,
+    "checksum_note": "Local reproducibility fingerprint; no official checksum was published on the source page at verification time."
+  },
+  "hdf5": {
+    "X": {
+      "shape": [
+        2555904,
+        1024,
+        2
+      ],
+      "dtype": "float32",
+      "chunks": null,
+      "compression": null
+    },
+    "Y": {
+      "shape": [
+        2555904,
+        24
+      ],
+      "dtype": "int64",
+      "chunks": null,
+      "compression": null
+    },
+    "Z": {
+      "shape": [
+        2555904,
+        1
+      ],
+      "dtype": "int64",
+      "chunks": null,
+      "compression": null
+    },
+    "root_keys": [
+      "X",
+      "Y",
+      "Z"
+    ]
+  },
+  "class_order": {
+    "path": "data/raw/RML2018.01a/classes-fixed.json",
+    "source_file": "classes-fixed.json",
+    "count": 24,
+    "classes": [
+      "OOK",
+      "4ASK",
+      "8ASK",
+      "BPSK",
+      "QPSK",
+      "8PSK",
+      "16PSK",
+      "32PSK",
+      "16APSK",
+      "32APSK",
+      "64APSK",
+      "128APSK",
+      "16QAM",
+      "32QAM",
+      "64QAM",
+      "128QAM",
+      "256QAM",
+      "AM-SSB-WC",
+      "AM-SSB-SC",
+      "AM-DSB-WC",
+      "AM-DSB-SC",
+      "FM",
+      "GMSK",
+      "OQPSK"
+    ]
+  },
+  "license_file": "data/raw/RML2018.01a/LICENSE.TXT",
+  "expected_layout": {
+    "X": [
+      2555904,
+      1024,
+      2
+    ],
+    "Y": [
+      2555904,
+      24
+    ],
+    "Z": [
+      2555904,
+      1
+    ]
+  },
+  "validation": {
+    "passed": true,
+    "errors": [],
+    "full_arrays_loaded_into_memory": false
+  },
+  "limitations": [
+    "DeepSig describes this as a historical research dataset with known errata.",
+    "The dataset is synthetic and does not replace validation on real over-the-air data."
+  ]
+}
