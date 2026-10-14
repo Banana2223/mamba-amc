@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-10-14T19:12:28+08:00",
+  "passed": true,
+  "purpose": "engineering smoke test; not a baseline result",
+  "seed": 2026,
+  "data": {
+    "hdf5_path": "data/raw/RML2018.01a/GOLD_XYZ_OSC.0001_1024.hdf5",
+    "splits_path": "artifacts/P1-T7/split_indices.npz",
+    "train_samples": 1789632,
+    "validation_samples": 383136,
+    "augmentation_enabled": false,
+    "preprocessing": "per-sample complex RMS normalization"
+  },
+  "model": {
+    "name": "TinyAMCProbe",
+    "role": "pipeline verification only",
+    "parameter_count": 10712,
+    "num_classes": 24
+  },
+  "training": {
+    "steps": 3,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "optimizer": "Adam",
+    "loss_function": "CrossEntropyLoss",
+    "losses": [
+      3.211574077606201,
+      3.2109100818634033,
+      3.218555212020874
+    ],
+    "last_gradient": {
+      "tensor_count": 11,
+      "global_l2_norm": 0.5477898227798691,
+      "all_finite": true,
+      "nonzero": true
+    }
+  },
+  "validation": {
+    "batches": 1,
+    "one_batch_loss": 3.223815679550171
+  },
+  "tensors": {
+    "input_shape": [
+      64,
+      2,
+      1024
+    ],
+    "input_dtype": "torch.float32",
+    "label_shape": [
+      64
+    ],
+    "label_dtype": "torch.int64",
+    "logits_shape": [
+      64,
+      24
+    ]
+  },
+  "runtime": {
+    "device": "cuda",
+    "device_name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "num_workers": 2,
+    "elapsed_seconds": 1.3098,
+    "cuda_peak_memory_mib": 37.754
+  },
+  "checks": {
+    "input_iq_shape": true,
+    "input_iq_dtype": true,
+    "input_iq_finite": true,
+    "input_unit_complex_power": true,
+    "input_label_shape": true,
+    "input_label_dtype": true,
+    "input_label_range": true,
+    "input_snr_shape": true,
+    "input_snr_values": true,
+    "input_index_shape": true,
+    "input_unique_indices": true,
+    "same_seed_first_batch_reproducible": true,
+    "logits_shape_is_batch_x_24": true,
+    "train_logits_finite": true,
+    "all_train_losses_finite": true,
+    "gradient_tensors_exist": true,
+    "gradients_finite": true,
+    "gradients_nonzero": true,
+    "optimizer_changed_parameters": true,
+    "validation_logits_shape_is_batch_x_24": true,
+    "validation_logits_finite": true,
+    "validation_loss_finite": true
+  }
+}

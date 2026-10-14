@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-10-14T18:29:02+08:00",
+  "passed": true,
+  "seed": 2026,
+  "protocol": {
+    "train_without_augmentation": {
+      "sequence_length": 1024,
+      "crop_mode": "center",
+      "normalization": "rms",
+      "epsilon": 1e-08,
+      "awgn_probability": 0.0,
+      "awgn_snr_db_min": 15.0,
+      "awgn_snr_db_max": 30.0,
+      "phase_probability": 0.0,
+      "phase_max_radians": 3.141592653589793,
+      "frequency_probability": 0.0,
+      "frequency_max_abs_cycles_per_sample": 0.005,
+      "multipath_probability": 0.0,
+      "multipath_max_echoes": 2,
+      "multipath_max_delay": 16,
+      "multipath_max_gain": 0.35,
+      "multipath_decay": 0.6
+    },
+    "train_with_augmentation": {
+      "sequence_length": 1024,
+      "crop_mode": "center",
+      "normalization": "rms",
+      "epsilon": 1e-08,
+      "awgn_probability": 0.25,
+      "awgn_snr_db_min": 15.0,
+      "awgn_snr_db_max": 30.0,
+      "phase_probability": 0.5,
+      "phase_max_radians": 3.141592653589793,
+      "frequency_probability": 0.25,
+      "frequency_max_abs_cycles_per_sample": 0.005,
+      "multipath_probability": 0.2,
+      "multipath_max_echoes": 2,
+      "multipath_max_delay": 16,
+      "multipath_max_gain": 0.35,
+      "multipath_decay": 0.6
+    },
+    "validation_and_test": {
+      "sequence_length": 1024,
+      "crop_mode": "center",
+      "normalization": "rms",
+      "epsilon": 1e-08,
+      "awgn_probability": 0.0,
+      "awgn_snr_db_min": 15.0,
+      "awgn_snr_db_max": 30.0,
+      "phase_probability": 0.0,
+      "phase_max_radians": 3.141592653589793,
+      "frequency_probability": 0.0,
+      "frequency_max_abs_cycles_per_sample": 0.005,
+      "multipath_probability": 0.0,
+      "multipath_max_echoes": 2,
+      "multipath_max_delay": 16,
+      "multipath_max_gain": 0.35,
+      "multipath_decay": 0.6
+    }
+  },
+  "example": {
+    "class_index": 4,
+    "class_name": "QPSK",
+    "snr_db": 20,
+    "raw_index": 507904,
+    "raw_complex_power": 0.997186005115509,
+    "normalized_complex_power": 0.9999999403953552,
+    "augmented_complex_power": 1.000000238418579
+  },
+  "loader_batch": {
+    "iq_shape": [
+      32,
+      2,
+      1024
+    ],
+    "iq_dtype": "torch.float32",
+    "label_shape": [
+      32
+    ],
+    "snr_shape": [
+      32
+    ],
+    "index_shape": [
+      32
+    ],
+    "augmentation_reproducibility_batch_size": 32,
+    "augmentation_reproducibility_num_workers": 2
+  },
+  "checks": {
+    "eval_is_deterministic": true,
+    "seeded_augmentation_is_reproducible": true,
+    "seeded_dataloader_augmentation_is_reproducible": true,
+    "different_seed_changes_augmentation": true,
+    "all_outputs_are_finite": true,
+    "full_length_shape_is_2x1024": true,
+    "short_crop_shape_is_2x512": true,
+    "normalized_power_is_one": true,
+    "augmented_power_is_one": true,
+    "loader_batch_shape_is_32x2x1024": true,
+    "loader_metadata_shapes_are_valid": true,
+    "loader_samples_have_unit_power": true
+  },
+  "snr_metadata_note": "Original SNR is retained as provenance; after augmentation it is not the exact effective SNR.",
+  "figure": "artifacts/P1-T8/preprocessing_examples.png"
+}
