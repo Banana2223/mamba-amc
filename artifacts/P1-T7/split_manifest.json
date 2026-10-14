@@ -1,0 +1,170 @@
+{
+  "generated_at": "2026-10-14T16:58:52+08:00",
+  "elapsed_seconds": 1.512,
+  "dataset_path": "data/raw/RML2018.01a/GOLD_XYZ_OSC.0001_1024.hdf5",
+  "classes_path": "data/raw/RML2018.01a/classes-fixed.json",
+  "split_file": "artifacts/P1-T7/split_indices.npz",
+  "split_file_sha256": "3bbd0b52846f0a445f18c6a2e8e0a879dc984b00fef57564f741bae6aab53fd0",
+  "seed": 2026,
+  "strategy": "independent random permutation within each class-SNR stratum",
+  "classes": [
+    "OOK",
+    "4ASK",
+    "8ASK",
+    "BPSK",
+    "QPSK",
+    "8PSK",
+    "16PSK",
+    "32PSK",
+    "16APSK",
+    "32APSK",
+    "64APSK",
+    "128APSK",
+    "16QAM",
+    "32QAM",
+    "64QAM",
+    "128QAM",
+    "256QAM",
+    "AM-SSB-WC",
+    "AM-SSB-SC",
+    "AM-DSB-WC",
+    "AM-DSB-SC",
+    "FM",
+    "GMSK",
+    "OQPSK"
+  ],
+  "snrs_db": [
+    -20,
+    -18,
+    -16,
+    -14,
+    -12,
+    -10,
+    -8,
+    -6,
+    -4,
+    -2,
+    0,
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16,
+    18,
+    20,
+    22,
+    24,
+    26,
+    28,
+    30
+  ],
+  "stratum_count": 624,
+  "source_samples_per_stratum": 4096,
+  "splits": {
+    "train": {
+      "per_group": 2868,
+      "sample_count": 1789632,
+      "ratio": 0.7001953125,
+      "indices_sha256": "41c2dec1acb81e045d4c2730e334a41ed1aed4ed4e679097206f977e0145e989",
+      "group_count_min": 2868,
+      "group_count_max": 2868
+    },
+    "val": {
+      "per_group": 614,
+      "sample_count": 383136,
+      "ratio": 0.14990234375,
+      "indices_sha256": "a968ebc416fca51f1ee1f8674d6af3fadb122659fdc3cd88c2c23afd82748458",
+      "group_count_min": 614,
+      "group_count_max": 614
+    },
+    "test": {
+      "per_group": 614,
+      "sample_count": 383136,
+      "ratio": 0.14990234375,
+      "indices_sha256": "c25fb11326fd07883fef04adffc8d72c43a7de26feb70a4a1a9b124ffe1e22e8",
+      "group_count_min": 614,
+      "group_count_max": 614
+    }
+  },
+  "validation": {
+    "passed": true,
+    "size_ok": true,
+    "duplicate_counts": {
+      "train": 0,
+      "val": 0,
+      "test": 0
+    },
+    "cross_split_overlap_count": 0,
+    "unassigned_index_count": 0,
+    "full_coverage": true
+  },
+  "leakage_scope": "Index-level only; transmitter/session identifiers are unavailable in RML2018.01A.",
+  "loader_smoke_test": {
+    "passed": true,
+    "batch_size": 64,
+    "num_workers": 2,
+    "train": {
+      "passed": true,
+      "dataset_length": 1789632,
+      "batch_iq_shape": [
+        64,
+        2,
+        1024
+      ],
+      "batch_iq_dtype": "torch.float32",
+      "batch_label_shape": [
+        64
+      ],
+      "batch_snr_shape": [
+        64
+      ],
+      "batch_index_shape": [
+        64
+      ],
+      "first_batch_seconds": 0.1024
+    },
+    "val": {
+      "passed": true,
+      "dataset_length": 383136,
+      "batch_iq_shape": [
+        64,
+        2,
+        1024
+      ],
+      "batch_iq_dtype": "torch.float32",
+      "batch_label_shape": [
+        64
+      ],
+      "batch_snr_shape": [
+        64
+      ],
+      "batch_index_shape": [
+        64
+      ],
+      "first_batch_seconds": 0.0294
+    },
+    "test": {
+      "passed": true,
+      "dataset_length": 383136,
+      "batch_iq_shape": [
+        64,
+        2,
+        1024
+      ],
+      "batch_iq_dtype": "torch.float32",
+      "batch_label_shape": [
+        64
+      ],
+      "batch_snr_shape": [
+        64
+      ],
+      "batch_index_shape": [
+        64
+      ],
+      "first_batch_seconds": 0.0252
+    }
+  }
+}
