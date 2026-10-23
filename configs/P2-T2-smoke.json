@@ -1,0 +1,58 @@
+{
+  "experiment_name": "p2-t2-framework-smoke",
+  "model": {
+    "name": "tiny_probe",
+    "kwargs": {
+      "num_classes": 24
+    }
+  },
+  "data": {
+    "hdf5_path": "data/raw/RML2018.01a/GOLD_XYZ_OSC.0001_1024.hdf5",
+    "splits_path": "artifacts/P1-T7/split_indices.npz",
+    "classes_path": "data/raw/RML2018.01a/classes-fixed.json",
+    "sequence_length": 1024,
+    "batch_size": 32,
+    "num_workers": 0,
+    "pin_memory": true,
+    "persistent_workers": false,
+    "prefetch_factor": 2,
+    "train_augmentation": false
+  },
+  "optimizer": {
+    "name": "adamw",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0,
+    "momentum": 0.9
+  },
+  "scheduler": {
+    "name": "none",
+    "minimum_learning_rate": 0.0,
+    "factor": 0.5,
+    "patience": 3
+  },
+  "training": {
+    "seed": 2026,
+    "device": "auto",
+    "max_epochs": 2,
+    "gradient_accumulation_steps": 1,
+    "gradient_clip_norm": 1.0,
+    "amp": true,
+    "deterministic": true,
+    "max_train_batches": 3,
+    "max_validation_batches": 2,
+    "checkpoint_metric": "macro_f1",
+    "checkpoint_mode": "max",
+    "early_stopping_patience": 3,
+    "early_stopping_min_delta": 0.0
+  },
+  "evaluation": {
+    "num_classes": 24,
+    "low_snr_min_db": -20,
+    "low_snr_max_db": 0
+  },
+  "output": {
+    "root": "outputs/P2-T2",
+    "run_name": null
+  }
+}
+

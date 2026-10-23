@@ -1,0 +1,42 @@
+{
+  "task": "P2-T2",
+  "date": "2026-10-23",
+  "passed": true,
+  "purpose": "engineering framework verification; not a baseline result",
+  "unit_tests": {
+    "passed": 3,
+    "total": 3
+  },
+  "cpu_smoke": {
+    "passed": true,
+    "resume_passed": true,
+    "resumed_epoch": 1,
+    "global_step_before_resume": 3,
+    "global_step_after_resume": 6
+  },
+  "gpu_smoke": {
+    "passed": true,
+    "device": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "automatic_mixed_precision_enabled": true,
+    "peak_memory_mib": 69.964,
+    "train_batches": 3,
+    "validation_batches": 2
+  },
+  "probe_model": {
+    "name": "tiny_probe",
+    "parameter_count": 10712,
+    "role": "framework verification only"
+  },
+  "artifacts_verified": [
+    "run configuration",
+    "JSONL epoch log",
+    "best checkpoint",
+    "last checkpoint",
+    "validation metrics",
+    "normalized confusion matrix",
+    "accuracy-by-SNR plot",
+    "end-to-end throughput and latency"
+  ],
+  "test_split_evaluated": false
+}
+

@@ -76,6 +76,7 @@ dist/
 # -----------------------------------------------------------------------------
 /paper/**/*.pdf
 /paper/*.pdf
+/paper/paper_notes/
 
 # -----------------------------------------------------------------------------
 # Training products and experiment services
@@ -99,3 +100,5 @@ dist/
 # Temporary files
 *.tmp
 *.bak
+
+/周报/
