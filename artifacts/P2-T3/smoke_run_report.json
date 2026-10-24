@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-23",
+  "passed": true,
+  "purpose": "training pipeline smoke verification, not baseline performance",
+  "config": "configs/P2-T3-cnn-smoke.json",
+  "run_directory": "outputs/P2-T3/cnn-smoke-verification-20261023",
+  "device": "cpu",
+  "model_name": "lightweight_cnn",
+  "parameter_count": 291128,
+  "epochs_completed": 2,
+  "train_batches_per_epoch": 4,
+  "validation_batches_per_epoch": 2,
+  "batch_size": 64,
+  "artifacts_verified": [
+    "run_config.json",
+    "metrics.jsonl",
+    "summary.json",
+    "best_validation_metrics.json",
+    "checkpoints/best.pt",
+    "checkpoints/last.pt",
+    "plots/validation_accuracy_by_snr.png",
+    "plots/validation_confusion_matrix.png"
+  ],
+  "test_split_evaluated": false,
+  "metric_interpretation": "The truncated validation iterator covers only the first 128 ordered validation samples. Its accuracy is not representative and must not be used as a baseline result."
+}

@@ -407,15 +407,21 @@ class ExperimentRunner:
         self.best_epoch = checkpoint.get("best_epoch")
         self.bad_epochs = int(checkpoint.get("bad_epochs", 0))
         if checkpoint.get("train_generator_state") is not None:
-            self.data.train_generator.set_state(checkpoint["train_generator_state"])
+            # ``torch.load(map_location=cuda)`` also moves serialized CPU RNG
+            # states to CUDA. CPU generators only accept a CPU ByteTensor.
+            self.data.train_generator.set_state(
+                checkpoint["train_generator_state"].cpu()
+            )
         if checkpoint.get("python_random_state") is not None:
             random.setstate(checkpoint["python_random_state"])
         if checkpoint.get("numpy_random_state") is not None:
             np.random.set_state(checkpoint["numpy_random_state"])
         if checkpoint.get("torch_random_state") is not None:
-            torch.set_rng_state(checkpoint["torch_random_state"])
+            torch.set_rng_state(checkpoint["torch_random_state"].cpu())
         if torch.cuda.is_available() and checkpoint.get("cuda_random_state") is not None:
-            torch.cuda.set_rng_state_all(checkpoint["cuda_random_state"])
+            torch.cuda.set_rng_state_all(
+                [state.cpu() for state in checkpoint["cuda_random_state"]]
+            )
         self.resumed_from = str(path)
 
     def _load_model_checkpoint(self, path: Path) -> None:
@@ -489,7 +495,8 @@ class ExperimentRunner:
                 f"best={self.best_metric:.4f}"
             )
             patience = self.config.training.early_stopping_patience
-            if patience > 0 and self.bad_epochs >= patience:
+            minimum_reached = epoch + 1 >= self.config.training.min_epochs
+            if minimum_reached and patience > 0 and self.bad_epochs >= patience:
                 stopped_early = True
                 break
 

@@ -49,6 +49,7 @@ class TrainingConfig:
     seed: int = 2026
     device: str = "auto"
     max_epochs: int = 1
+    min_epochs: int = 1
     gradient_accumulation_steps: int = 1
     gradient_clip_norm: float | None = 1.0
     amp: bool = True
@@ -108,6 +109,10 @@ class ExperimentConfig:
             raise ValueError("training.device must be auto, cpu, or cuda")
         if self.training.max_epochs <= 0:
             raise ValueError("training.max_epochs must be positive")
+        if self.training.min_epochs <= 0:
+            raise ValueError("training.min_epochs must be positive")
+        if self.training.min_epochs > self.training.max_epochs:
+            raise ValueError("training.min_epochs cannot exceed max_epochs")
         if self.training.gradient_accumulation_steps <= 0:
             raise ValueError(
                 "training.gradient_accumulation_steps must be positive"

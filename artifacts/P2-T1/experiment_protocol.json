@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "frozen_at": "2026-10-23",
+  "status": "initial_frozen_protocol",
+  "data_split_seed": 2026,
+  "train_augmentation": false,
+  "optimizer": {
+    "default": "adamw",
+    "learning_rate": 0.001,
+    "allowed_stability_fallback_learning_rate": 0.0003,
+    "weight_decay": 0.0001
+  },
+  "scheduler": {
+    "name": "cosine",
+    "minimum_learning_rate": 0.00001
+  },
+  "training": {
+    "target_effective_batch_size": 256,
+    "max_epochs": 30,
+    "min_epochs": 10,
+    "gradient_clip_norm": 1.0,
+    "amp_on_cuda": true,
+    "early_stopping_metric": "macro_f1",
+    "early_stopping_mode": "max",
+    "early_stopping_patience": 6,
+    "early_stopping_min_delta": 0.0001
+  },
+  "evaluation": {
+    "low_snr_min_db": -20,
+    "low_snr_max_db": 0,
+    "checkpoint_metric": "macro_f1"
+  },
+  "seeds": {
+    "development": [2026],
+    "formal": [2026, 2027, 2028],
+    "optional_extended": [2029, 2030]
+  },
+  "physical_batch_recommendations": {
+    "lightweight_cnn": {"batch_size": 256, "gradient_accumulation_steps": 1},
+    "resnet": {"batch_size": 128, "gradient_accumulation_steps": 2},
+    "cldnn_mcldnn": {"batch_size": 128, "gradient_accumulation_steps": 2},
+    "transformer": {"batch_size": 64, "gradient_accumulation_steps": 4},
+    "mamba": {"batch_size": 64, "gradient_accumulation_steps": 4}
+  }
+}

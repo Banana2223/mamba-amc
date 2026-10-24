@@ -9,7 +9,7 @@ from pathlib import Path
 
 import torch
 
-from amc_framework.config import load_experiment_config
+from amc_framework.config import experiment_config_from_dict, load_experiment_config
 from amc_framework.metrics import ClassificationAccumulator
 from amc_framework.models import create_model
 
@@ -21,6 +21,12 @@ class ConfigurationTests(unittest.TestCase):
             path.write_text(json.dumps({"unknown": 1}), encoding="utf-8")
             with self.assertRaises(ValueError):
                 load_experiment_config(path)
+
+    def test_minimum_epochs_cannot_exceed_maximum(self) -> None:
+        with self.assertRaises(ValueError):
+            experiment_config_from_dict(
+                {"training": {"min_epochs": 11, "max_epochs": 10}}
+            )
 
 
 class MetricTests(unittest.TestCase):
@@ -48,6 +54,31 @@ class ModelTests(unittest.TestCase):
         model = create_model("tiny_probe", num_classes=24)
         output = model(torch.randn(2, 2, 1024))
         self.assertEqual(tuple(output.shape), (2, 24))
+
+    def test_lightweight_cnn_contract_and_gradient(self) -> None:
+        model = create_model(
+            "lightweight_cnn",
+            num_classes=24,
+            base_channels=16,
+            pooled_length=4,
+            classifier_width=32,
+            dropout=0.0,
+        )
+        output = model(torch.randn(2, 2, 1024))
+        self.assertEqual(tuple(output.shape), (2, 24))
+        output.sum().backward()
+        gradients = [
+            parameter.grad
+            for parameter in model.parameters()
+            if parameter.requires_grad
+        ]
+        self.assertTrue(all(gradient is not None for gradient in gradients))
+        self.assertTrue(all(torch.isfinite(gradient).all() for gradient in gradients))
+
+    def test_lightweight_cnn_rejects_wrong_input(self) -> None:
+        model = create_model("lightweight_cnn", num_classes=24)
+        with self.assertRaises(ValueError):
+            model(torch.randn(2, 1024))
 
 
 if __name__ == "__main__":

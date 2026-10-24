@@ -22,6 +22,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--device", choices=("auto", "cpu", "cuda"))
     parser.add_argument("--batch-size", type=int)
     parser.add_argument("--num-workers", type=int)
+    parser.add_argument("--seed", type=int)
     parser.add_argument("--max-epochs", type=int)
     parser.add_argument("--max-train-batches", type=int)
     parser.add_argument("--max-validation-batches", type=int)
@@ -58,6 +59,8 @@ def apply_overrides(config: object, args: argparse.Namespace) -> None:
         config.data.batch_size = args.batch_size
     if args.num_workers is not None:
         config.data.num_workers = args.num_workers
+    if args.seed is not None:
+        config.training.seed = args.seed
     if args.max_epochs is not None:
         config.training.max_epochs = args.max_epochs
     if args.max_train_batches is not None:
