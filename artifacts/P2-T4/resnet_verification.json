@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-10-24T21:02:55+08:00",
+  "passed": true,
+  "device": "cpu",
+  "model_name": "radio_resnet",
+  "parameter_count": 165144,
+  "architecture": {
+    "input": [
+      2,
+      1024
+    ],
+    "channels": 32,
+    "residual_stacks": 6,
+    "residual_units_per_stack": 2,
+    "classifier_width": 128,
+    "classes": 24
+  },
+  "input_shape": [
+    24,
+    2,
+    1024
+  ],
+  "output_shape": [
+    24,
+    24
+  ],
+  "gradient_check_passed": true,
+  "test_split_evaluated": false,
+  "overfit": {
+    "sample_count": 24,
+    "samples_per_class": 1,
+    "class_count": 24,
+    "raw_indices": [
+      2,
+      106497,
+      212992,
+      319488,
+      425985,
+      532480,
+      638977,
+      745472,
+      851969,
+      958464,
+      1064960,
+      1171457,
+      1277952,
+      1384450,
+      1490945,
+      1597440,
+      1703937,
+      1810432,
+      1916928,
+      2023424,
+      2129920,
+      2236417,
+      2342912,
+      2449409
+    ],
+    "steps_requested": 300,
+    "steps_completed": 9,
+    "learning_rate": 0.003,
+    "target_accuracy": 0.95,
+    "initial_loss": 3.63424015045166,
+    "final_loss": 1.0796535015106201,
+    "final_accuracy": 0.9583333134651184,
+    "passed": true
+  },
+  "elapsed_seconds": 0.18127115800007232
+}

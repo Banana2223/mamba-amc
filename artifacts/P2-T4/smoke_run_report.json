@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-24",
+  "purpose": "RadioResNet real-HDF5 engineering smoke test",
+  "passed": true,
+  "device": "cpu",
+  "config": "configs/P2-T4-resnet-smoke.json",
+  "run_directory": "outputs/P2-T4/resnet-smoke-verification-20261024",
+  "epochs": 2,
+  "train_batches_per_epoch": 4,
+  "validation_batches_per_epoch": 2,
+  "first_epoch_train_loss": 3.594721,
+  "last_epoch_train_loss": 3.320393,
+  "validation_accuracy_is_formal_result": false,
+  "test_split_evaluated": false,
+  "verified_components": [
+    "HDF5 on-demand loading",
+    "RMS normalization",
+    "forward and backward passes",
+    "optimizer updates",
+    "validation metrics",
+    "plots and checkpoints"
+  ]
+}

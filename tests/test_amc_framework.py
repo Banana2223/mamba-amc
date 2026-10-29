@@ -80,6 +80,33 @@ class ModelTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             model(torch.randn(2, 1024))
 
+    def test_radio_resnet_contract_and_gradient(self) -> None:
+        model = create_model(
+            "radio_resnet",
+            num_classes=24,
+            input_length=128,
+            channels=8,
+            num_stacks=3,
+            units_per_stack=1,
+            classifier_width=16,
+            dropout=0.0,
+        )
+        output = model(torch.randn(2, 2, 128))
+        self.assertEqual(tuple(output.shape), (2, 24))
+        output.sum().backward()
+        gradients = [
+            parameter.grad
+            for parameter in model.parameters()
+            if parameter.requires_grad
+        ]
+        self.assertTrue(all(gradient is not None for gradient in gradients))
+        self.assertTrue(all(torch.isfinite(gradient).all() for gradient in gradients))
+
+    def test_radio_resnet_rejects_wrong_length(self) -> None:
+        model = create_model("radio_resnet", num_classes=24, input_length=1024)
+        with self.assertRaises(ValueError):
+            model(torch.randn(2, 2, 512))
+
 
 if __name__ == "__main__":
     unittest.main()

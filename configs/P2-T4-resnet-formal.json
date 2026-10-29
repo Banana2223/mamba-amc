@@ -1,0 +1,65 @@
+{
+  "experiment_name": "p2-t4-radio-resnet-formal",
+  "model": {
+    "name": "radio_resnet",
+    "kwargs": {
+      "num_classes": 24,
+      "input_length": 1024,
+      "channels": 32,
+      "num_stacks": 6,
+      "units_per_stack": 2,
+      "kernel_size": 3,
+      "classifier_width": 128,
+      "dropout": 0.1
+    }
+  },
+  "data": {
+    "hdf5_path": "data/raw/RML2018.01a/GOLD_XYZ_OSC.0001_1024.hdf5",
+    "splits_path": "artifacts/P1-T7/split_indices.npz",
+    "classes_path": "data/raw/RML2018.01a/classes-fixed.json",
+    "sequence_length": 1024,
+    "batch_size": 128,
+    "num_workers": 4,
+    "pin_memory": true,
+    "persistent_workers": true,
+    "prefetch_factor": 2,
+    "train_augmentation": false
+  },
+  "optimizer": {
+    "name": "adamw",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "momentum": 0.9
+  },
+  "scheduler": {
+    "name": "cosine",
+    "minimum_learning_rate": 0.00001,
+    "factor": 0.5,
+    "patience": 3
+  },
+  "training": {
+    "seed": 2026,
+    "device": "auto",
+    "max_epochs": 30,
+    "min_epochs": 10,
+    "gradient_accumulation_steps": 2,
+    "gradient_clip_norm": 1.0,
+    "amp": true,
+    "deterministic": true,
+    "max_train_batches": null,
+    "max_validation_batches": null,
+    "checkpoint_metric": "macro_f1",
+    "checkpoint_mode": "max",
+    "early_stopping_patience": 6,
+    "early_stopping_min_delta": 0.0001
+  },
+  "evaluation": {
+    "num_classes": 24,
+    "low_snr_min_db": -20,
+    "low_snr_max_db": 0
+  },
+  "output": {
+    "root": "outputs/P2-T4",
+    "run_name": null
+  }
+}
